@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <meta charset="UTF-8">
+    <meta name="description" content="Современные велосипеды по отличным ценам">
+    <meta content="велосипеды, магазин, веломагазин">
+    <title>Лучший магазин велосипедов!</title>
+    {{> shared_scripts }}
+  <script src="scripts/form_submission.js" async></script>
+</head>
+
+<body>
+<header>
+  {{> header }}
+</header>
+
+<main>
+    <nav>
+        {{> menu }}
+    </nav>
+
+    <h2 class = "page_name">Избранное</h2>
+    <form id="favourites_form">
+        <div>
+            <label for="item">Добавьте товар в избранное:</label>
+        </div>
+        <div>
+            <input class="form_field" type="text" name="item" id="item" required>
+        </div>
+    </form>
+    <div id="favourite_list">
+    </div>
+</main>
+
+<footer>
+  {{> footer }}
+</footer>
+
+</body>
+</html>

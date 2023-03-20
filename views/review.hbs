@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <meta charset="UTF-8">
+  <meta name="description" content="Современные велосипеды по отличным ценам">
+  <meta content="велосипеды, магазин, веломагазин">
+  <title>Лучший магазин велосипедов!</title>
+  {{> shared_scripts }}
+  <script src="scripts/reviews.js" async></script>
+</head>
+
+<body>
+<header>
+  {{> header }}
+</header>
+
+<main>
+  <nav>
+    {{> menu }}
+  </nav>
+
+  <h2 class="page_name">Отзывы</h2>
+  <div id='reviews'>
+    <img id="preloader" src="images/preloader.gif" alt="preloader">
+  </div>
+  <div id="button_space">
+  </div>
+</main>
+
+<footer>
+  {{> footer }}
+</footer>
+</body>
+</html>

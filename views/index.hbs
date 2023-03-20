@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <meta charset="UTF-8">
+    <meta name="description" content="Современные велосипеды по отличным ценам">
+    <meta content="велосипеды, магазин, веломагазин">
+    <title>Лучший магазин велосипедов!</title>
+    {{> shared_scripts }}
+</head>
+
+<body>
+<header>
+  {{> header }}
+</header>
+
+<main>
+    <nav>
+        {{> menu }}
+    </nav>
+
+    <h2 class="page_name">Велосипеды</h2>
+    <div class="item_list">
+      {{#each data.bikes}}
+        {{> product_card image_link=image_link name=name description=description price=price}}
+      {{/each}}
+    </div>
+</main>
+
+<footer>
+  {{> footer }}
+</footer>
+</body>
+
+</html>
