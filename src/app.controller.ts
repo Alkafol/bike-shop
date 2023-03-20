@@ -7,7 +7,7 @@ import { TimeInterceptor } from "./time.interceptor";
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('/index')
+  @Get('')
   @Render('index')
   async getIndex(){
     const bikes_list = this.appService.getBikes();
