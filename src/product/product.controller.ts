@@ -1,5 +1,5 @@
 import { ProductService } from "./product.service";
-import { Body, Controller, Delete, Get, NotImplementedException, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, NotImplementedException, Param, Patch, Post } from "@nestjs/common";
 import { ProductGetDto } from "./dto/product.get.dto";
 import { ProductPostDto } from "./dto/product.post.dto";
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
