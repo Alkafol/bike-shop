@@ -5,6 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import hbs = require('hbs');
 import path = require('path');
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -15,6 +16,13 @@ async function bootstrap() {
   app.setViewEngine('hbs');
   hbs.registerPartials(path.join(__dirname,'..', 'views/partials'));
 
+  const config = new DocumentBuilder()
+    .setTitle('Bike shop')
+    .setDescription('Bike shop API description')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(port);
 }
