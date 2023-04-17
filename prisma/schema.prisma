@@ -36,6 +36,7 @@ model Product{
     reviews Review[]
     sales Sale[]
     categories CategoriesOnProducts[]
+    image Bytes
 }
 
 model Sale{

@@ -9,4 +9,7 @@ export class ProductPostDto {
 
   @ApiProperty()
   description : string
+
+  @ApiProperty()
+  image : string
 }
