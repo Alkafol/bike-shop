@@ -74,6 +74,22 @@ export class ProductController {
   })
   @Delete('delete_product')
   async deleteProduct(@Param('id') id: bigint): Promise<void> {
+    await this.productService.deleteProduct(id);
+  }
+
+  @ApiOperation({
+    summary: 'Change product characteristics'
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'OK'
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Product with given ID wasn\'t found'
+  })
+  @Patch('change_product')
+  async changeProduct(@Body() createProductDto : ProductPostDto): Promise<void> {
     throw new NotImplementedException();
   }
 }
