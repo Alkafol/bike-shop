@@ -74,7 +74,7 @@ export class ProductController {
   })
   @Delete('delete_product')
   async deleteProduct(@Param('id') id: bigint): Promise<void> {
-    await this.productService.deleteProduct(id);
+    throw new NotImplementedException();
   }
 
   @ApiOperation({
