@@ -1,4 +1,9 @@
+import {ApiProperty} from "@nestjs/swagger";
+
 export class UserGetDto {
-  id : bigint
+  @ApiProperty()
+  id : number
+
+  @ApiProperty()
   email : string
 }

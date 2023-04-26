@@ -1,8 +1,8 @@
 export class SaleGetDto {
-  id : bigint
-  user_id : bigint
-  product_id : bigint
+  id : number
+  user_id : number
+  product_id : number
   final_price : number
-  amount : bigint
+  amount : number
   sale_time : string
 }

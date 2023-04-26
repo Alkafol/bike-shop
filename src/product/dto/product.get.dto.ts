@@ -1,7 +1,18 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export class ProductGetDto {
-  id : bigint
+  @ApiProperty()
+  id : number
+
+  @ApiProperty()
   name : string
+
+  @ApiProperty()
   price : number
+
+  @ApiProperty()
   description : string
-  image : string
+
+  @ApiProperty()
+  image : Buffer
 }

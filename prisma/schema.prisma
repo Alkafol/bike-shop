@@ -36,7 +36,7 @@ model Product{
     reviews Review[]
     sales Sale[]
     categories CategoriesOnProducts[]
-    image Bytes
+    image Bytes?
 }
 
 model Sale{
@@ -47,7 +47,7 @@ model Sale{
     product_id Int
     amount Int
     final_price Float
-    sale_time DateTime
+    sale_time String
 }
 
 model Category{

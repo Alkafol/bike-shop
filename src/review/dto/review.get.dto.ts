@@ -1,6 +1,18 @@
+import {ApiProperty} from "@nestjs/swagger";
+
 export class ReviewGetDto {
-  id : bigint
-  rate : bigint
+  @ApiProperty()
+  id : number
+
+  @ApiProperty()
+  rate : number
+
+  @ApiProperty()
   description : string
-  userId : bigint
+
+  @ApiProperty()
+  author_id : number
+
+  @ApiProperty()
+  product_id : number
 }

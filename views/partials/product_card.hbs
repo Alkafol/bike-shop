@@ -1,6 +1,7 @@
 <article class="item">
-  <img class="item_image" src={{ image_link }}>
-  <h4 class="item_name">{{ name }}</h4>
-  <p class="item_description">{{ description }}</p>
-  <p class="item_price">{{ price }}</p>
+    <img class="item_image" src='images/bmx_bike.png'>
+    <h4 class="item_name">{{ name }}</h4>
+    <p class="item_description">{{ description }}</p>
+    <p class="item_price">Цена: {{ price }}</p>
+    <button class="buy_button" id="buy_button" data-product-id="{{ productId }}" data-final-price="{{ price }}">Купить</button>
 </article>

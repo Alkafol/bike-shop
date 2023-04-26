@@ -1,14 +1,15 @@
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Body, Controller, Delete, Get, NotImplementedException, Param, Post } from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query} from "@nestjs/common";
 import { ReviewService } from "./review.service";
 import { ReviewGetDto } from "./dto/review.get.dto";
 import { ReviewPostDto } from "./dto/review.post.dto";
+import {ReviewValidator} from "./review.validator";
 
 @ApiTags('reviews')
-@Controller('review')
+@Controller('reviews')
 export class ReviewController {
 
-  constructor(private readonly reviewService: ReviewService) {}
+  constructor(private readonly reviewService: ReviewService, private readonly reviewValidator: ReviewValidator) {}
 
   @ApiOperation({
     summary: 'Get review by given ID'
@@ -22,9 +23,9 @@ export class ReviewController {
     status: 404,
     description: 'Review with given ID wasn\'t found'
   })
-  @Get('get_by_id')
-  async getReviewById(@Param('id') id: bigint): Promise<ReviewGetDto> {
-    throw new NotImplementedException();
+  @Get('get_by_id/:id')
+  async getReviewById(@Param('id', ParseIntPipe) id: number): Promise<ReviewGetDto> {
+    return await this.reviewService.findById(id);
   }
 
   @ApiOperation({
@@ -39,9 +40,12 @@ export class ReviewController {
     status: 404,
     description: 'User with given ID wasn\'t found'
   })
-  @Get('get_all_by_user')
-  async getReviewByUser(@Param('user_id') userId: bigint): Promise<ReviewGetDto[]> {
-    throw new NotImplementedException();
+  @Get('get_all_by_user/:user_id')
+  async getReviewByUser(
+      @Query('skip') skip: string,
+      @Query('take') take: string,
+      @Param('product_id', ParseIntPipe) authorId: number): Promise<ReviewGetDto[]> {
+    return await this.reviewService.findByAuthorId(authorId, {skip: Number(skip), take: Number(take)});
   }
 
   @ApiOperation({
@@ -56,9 +60,9 @@ export class ReviewController {
     status: 404,
     description: 'Product with given ID wasn\'t found'
   })
-  @Get('get_all_by_product')
-  async getReviewByProduct(@Param('product_id') productId: bigint): Promise<ReviewGetDto[]> {
-    throw new NotImplementedException();
+  @Get('get_all_by_product/:product_id')
+  async getReviewByProduct(@Param('product_id', ParseIntPipe) productId: number): Promise<ReviewGetDto[]>{
+    return await this.reviewService.findByProduct(productId);
   }
 
 
@@ -70,8 +74,9 @@ export class ReviewController {
     description: 'OK'
   })
   @Post('create_review')
-  async createReview(@Body() createReviewDto : ReviewPostDto): Promise<void> {
-    throw new NotImplementedException();
+  async createReview(@Body() reviewPostDto : ReviewPostDto): Promise<void> {
+    this.reviewValidator.validate(reviewPostDto);
+    await this.reviewService.createReview(reviewPostDto);
   }
 
   @ApiOperation({
@@ -86,8 +91,8 @@ export class ReviewController {
     status: 404,
     description: 'Review with given ID wasn\'t found'
   })
-  @Delete('delete_review')
-  async deleteReview(@Param('id') id: bigint): Promise<void> {
-    throw new NotImplementedException();
+  @Delete('delete_review/:id')
+  async deleteReview(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    await this.reviewService.deleteReview(id);
   }
 }

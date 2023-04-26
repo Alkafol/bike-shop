@@ -1,14 +1,15 @@
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { Body, Controller, Delete, Get, NotImplementedException, Param, Post } from "@nestjs/common";
+import {Body, Controller, Delete, Get, NotImplementedException, Param, ParseIntPipe, Post} from "@nestjs/common";
 import { SaleService } from "./sale.service";
 import { SaleGetDto } from "./dto/sale.get.dto";
 import { SalePostDto } from "./dto/sale.post.dto";
+import {SaleValidator} from "./sale.validator";
 
 @ApiTags('sales')
-@Controller('sale')
+@Controller('sales')
 export class SaleController {
 
-  constructor(private readonly saleService: SaleService) {}
+  constructor(private readonly saleService: SaleService, private saleValidator: SaleValidator) {}
 
   @ApiOperation({
     summary: 'Get sale by id'
@@ -22,9 +23,9 @@ export class SaleController {
     status: 404,
     description: 'Sale with given ID wasn\'t found'
   })
-  @Get('get_by_id')
-  async getSaleById(@Param('id') id: bigint): Promise<SaleGetDto> {
-    throw new NotImplementedException();
+  @Get('get_by_id/:id')
+  async getSaleById(@Param('id', ParseIntPipe) id: number): Promise<SaleGetDto> {
+    return await this.saleService.findById(id);
   }
 
   @ApiOperation({
@@ -39,9 +40,9 @@ export class SaleController {
     status: 404,
     description: 'User with given ID wasn\'t found'
   })
-  @Get('get_all_by_user')
-  async getSaleByUser(@Param('user_id') userId: bigint): Promise<SaleGetDto[]> {
-    throw new NotImplementedException();
+  @Get('get_all_by_user/:user_id')
+  async getSaleByUser(@Param('user_id', ParseIntPipe) userId: number): Promise<SaleGetDto[]> {
+    return await this.saleService.findByUserId(userId);
   }
 
   @ApiOperation({
@@ -56,9 +57,9 @@ export class SaleController {
     status: 404,
     description: 'Product with given ID wasn\'t found'
   })
-  @Get('get_all_by_product')
-  async getSaleByProduct(@Param('product_id') productId: bigint): Promise<SaleGetDto[]> {
-    throw new NotImplementedException();
+  @Get('get_all_by_product/:product_id')
+  async getSaleByProduct(@Param('product_id', ParseIntPipe) productId: number): Promise<SaleGetDto[]> {
+    return await this.saleService.findByProductId(productId);
   }
 
   @ApiOperation({
@@ -69,8 +70,9 @@ export class SaleController {
     description: 'OK'
   })
   @Post('create_sale')
-  async createSale(@Body() createSaleDto : SalePostDto): Promise<void> {
-    throw new NotImplementedException();
-  }
+  async createSale(@Body() salePostDto : SalePostDto): Promise<void> {
+    this.saleValidator.validate(salePostDto);
 
+    await this.saleService.createSale(salePostDto);
+  }
 }

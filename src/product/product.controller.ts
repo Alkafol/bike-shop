@@ -1,14 +1,16 @@
 import { ProductService } from "./product.service";
-import { Body, Controller, Delete, Get, NotImplementedException, Param, Patch, Post } from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Render} from "@nestjs/common";
 import { ProductGetDto } from "./dto/product.get.dto";
 import { ProductPostDto } from "./dto/product.post.dto";
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ProductUpdateDto } from "./dto/product.update.dto";
+import {ProductValidator} from "./product.validator";
 
 @ApiTags('products')
-@Controller('product')
+@Controller('products')
 export class ProductController {
 
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly productService: ProductService, private productValidator: ProductValidator) {}
 
   @ApiOperation({
     summary: 'Get product by given id'
@@ -22,9 +24,9 @@ export class ProductController {
     status: 404,
     description: 'Product with given ID wasn\'t found'
   })
-  @Get('get_by_id')
-  async getProductById(@Param('id') id: bigint): Promise<ProductGetDto> {
-    throw new NotImplementedException();
+  @Get('get_by_id/:id')
+  async getProductById(@Param('id', ParseIntPipe) id: number): Promise<ProductGetDto> {
+    return await this.productService.findById(id);
   }
 
   @ApiOperation({
@@ -39,9 +41,9 @@ export class ProductController {
     status: 404,
     description: 'Invalid category'
   })
-  @Get('get_all_by_category')
-  async getAllProductsByCategory(@Param('category') category: string): Promise<ProductGetDto[]> {
-    throw new NotImplementedException();
+  @Get('get_all_by_category/:category')
+  async getAllProductsByCategory(@Param('category', ParseIntPipe) category_id: number): Promise<ProductGetDto[]> {
+    return await this.productService.findAllByCategory(category_id);
   }
 
   @ApiOperation({
@@ -56,8 +58,10 @@ export class ProductController {
     description: 'Forbidden'
   })
   @Post('create_product')
-  async createProduct(@Body() createProductDto : ProductPostDto): Promise<void> {
-    throw new NotImplementedException();
+  async createProduct(@Body() productPostDto : ProductPostDto): Promise<void> {
+    this.productValidator.validate(productPostDto);
+
+    await this.productService.createProduct(productPostDto);
   }
 
   @ApiOperation({
@@ -72,9 +76,9 @@ export class ProductController {
     status: 404,
     description: 'Product with given ID wasn\'t found'
   })
-  @Delete('delete_product')
-  async deleteProduct(@Param('id') id: bigint): Promise<void> {
-    throw new NotImplementedException();
+  @Delete('delete_product/:id')
+  async deleteProduct(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return await this.productService.deleteProduct(id);
   }
 
   @ApiOperation({
@@ -88,8 +92,8 @@ export class ProductController {
     status: 404,
     description: 'Product with given ID wasn\'t found'
   })
-  @Patch('change_product')
-  async changeProduct(@Body() createProductDto : ProductPostDto): Promise<void> {
-    throw new NotImplementedException();
+  @Patch('change_product/:id')
+  async changeProduct(@Param('id', ParseIntPipe) id: number, @Body() productUpdateDto : ProductUpdateDto): Promise<ProductGetDto> {
+    return await this.productService.update(id, productUpdateDto);
   }
 }

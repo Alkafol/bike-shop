@@ -1,4 +1,4 @@
-import { Controller, Get, Render, Req, Res, UseInterceptors } from "@nestjs/common";
+import {Controller, Get, Render, UseInterceptors} from "@nestjs/common";
 import { AppService } from './app.service';
 import { TimeInterceptor } from "./time.interceptor";
 
@@ -10,34 +10,38 @@ export class AppController {
   @Get('')
   @Render('index')
   async getIndex(){
-    const bikes_list = this.appService.getBikes();
+    const bikes_list = await this.appService.getBikes();
 
     return { bikes: bikes_list }
   }
 
   @Get('/accessories')
   @Render('accessories')
-  getAccessories() {
-    const accessories_list = this.appService.getAccessories();
+  async getAccessories() {
+    const accessories_list = await this.appService.getAccessories();
 
     return {accessories: accessories_list}
   }
 
   @Get('/favourites')
   @Render('favourites')
-  getFavourites() {
-    return {}
+  async getFavourites() {
+    const sales_list = await this.appService.getSales();
+
+    return {sales: sales_list}
   }
 
   @Get('/info')
   @Render('info')
-  getInfo() {
-    return {}
+  async getInfo() {
+
   }
 
   @Get('/review')
   @Render('review')
-  getReview() {
-    return {}
+  async getReview() {
+    const reviews_list = await this.appService.getReviews();
+
+    return {reviews: reviews_list}
   }
 }

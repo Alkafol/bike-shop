@@ -20,17 +20,13 @@
         {{> menu }}
     </nav>
 
-    <h2 class = "page_name">Избранное</h2>
-    <form id="favourites_form">
-        <div>
-            <label for="item">Добавьте товар в избранное:</label>
-        </div>
-        <div>
-            <input class="form_field" type="text" name="item" id="item" required>
-        </div>
-    </form>
-    <div id="favourite_list">
+    <h2 class = "page_name">История покупок</h2>
+    <div id='reviews'>
+        {{#each data.sales}}
+            {{> user_sale }}
+        {{/each}}
     </div>
+
 </main>
 
 <footer>

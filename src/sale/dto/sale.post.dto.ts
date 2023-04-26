@@ -1,18 +1,24 @@
 import { ApiProperty } from "@nestjs/swagger";
+import {IsNotEmpty} from "class-validator";
 
 export class SalePostDto {
   @ApiProperty()
-  user_id : bigint
+  @IsNotEmpty()
+  user_id : number
 
   @ApiProperty()
-  product_id : bigint
+  @IsNotEmpty()
+  product_id : number
 
   @ApiProperty()
+  @IsNotEmpty()
   final_price : number
 
   @ApiProperty()
-  amount : bigint
+  @IsNotEmpty()
+  amount : number
 
   @ApiProperty()
+  @IsNotEmpty()
   sale_time : string
 }

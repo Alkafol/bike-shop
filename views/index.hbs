@@ -7,6 +7,7 @@
     <meta content="велосипеды, магазин, веломагазин">
     <title>Лучший магазин велосипедов!</title>
     {{> shared_scripts }}
+    <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
 </head>
 
 <body>
@@ -22,7 +23,7 @@
     <h2 class="page_name">Велосипеды</h2>
     <div class="item_list">
       {{#each data.bikes}}
-        {{> product_card image_link=image_link name=name description=description price=price}}
+        {{> product_card image_link=image_link name=name description=description price=price productId=id}}
       {{/each}}
     </div>
 </main>
