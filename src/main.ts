@@ -9,6 +9,7 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { ValidationPipe } from '@nestjs/common';
 import supertokens from "supertokens-node";
 import {SupertokensExceptionFilter} from "./auth/auth.filter";
+import {IoAdapter} from "@nestjs/platform-socket.io";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -36,7 +37,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-
+  app.useWebSocketAdapter(new IoAdapter(app));
 
   await app.listen(port);
 }

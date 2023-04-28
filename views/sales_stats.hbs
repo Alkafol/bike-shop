@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <meta charset="UTF-8">
+    <meta name="description" content="Современные велосипеды по отличным ценам">
+    <meta content="велосипеды, магазин, веломагазин">
+    <title>Лучший магазин велосипедов!</title>
+    {{> shared_scripts }}
+    <script src="scripts/sign_in.js" async></script>
+    <script src="scripts/sign_up.js" async></script>
+</head>
+
+<body>
+<header>
+    {{> header }}
+</header>
+
+<main>
+    <nav>
+        {{> menu }}
+    </nav>
+
+    <body>
+    <h2>Статистика продаж</h2>
+    <div>
+        <ul id="sales_stat"></ul>
+    </div>
+    </body>
+</main>
+
+<footer>
+    {{> footer }}
+</footer>
+
+</body>
+</html>
