@@ -7,10 +7,19 @@ import hbs = require('hbs');
 import path = require('path');
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { ValidationPipe } from '@nestjs/common';
+import supertokens from "supertokens-node";
+import {SupertokensExceptionFilter} from "./auth/auth.filter";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
   const port = app.get(ConfigService).get('PORT') || 3000;
+  app.enableCors({
+    origin: [process.env.BASE_URL],
+    allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
+    credentials: true,
+  });
+  app.useGlobalFilters(new SupertokensExceptionFilter());
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
@@ -26,6 +35,8 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
+
+
 
   await app.listen(port);
 }

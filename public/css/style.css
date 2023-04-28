@@ -15,6 +15,26 @@ body {
     margin-right: 10px;
 }
 
+.logging_form{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.logging_input{
+    margin: 10px;
+    width: 25%;
+    height: 27px;
+    border-radius: 7px;
+}
+
+.logging_button{
+    width: 120px;
+    height: 32px;
+    margin: 10px;
+    border-radius: 7px;
+}
+
 .item {
     box-shadow: 5px 5px 5px 5px #B8D0E0;
     margin: 15px;

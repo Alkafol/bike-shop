@@ -1,6 +1,10 @@
-import {Controller, Get, Render, UseInterceptors} from "@nestjs/common";
+import {Controller, Get, Render, UseGuards, UseInterceptors} from "@nestjs/common";
 import { AppService } from './app.service';
 import { TimeInterceptor } from "./time.interceptor";
+import {Session} from "./auth/session/session.decorator";
+import { SessionContainer } from "supertokens-node/recipe/session";
+import {AuthGuard} from "./auth/auth.guard";
+
 
 @Controller()
 @UseInterceptors(TimeInterceptor)
@@ -9,7 +13,8 @@ export class AppController {
 
   @Get('')
   @Render('index')
-  async getIndex(){
+  async getIndex(@Session() session: SessionContainer){
+
     const bikes_list = await this.appService.getBikes();
 
     return { bikes: bikes_list }
@@ -17,7 +22,7 @@ export class AppController {
 
   @Get('/accessories')
   @Render('accessories')
-  async getAccessories() {
+  async getAccessories(@Session() session: SessionContainer) {
     const accessories_list = await this.appService.getAccessories();
 
     return {accessories: accessories_list}
@@ -25,7 +30,8 @@ export class AppController {
 
   @Get('/favourites')
   @Render('favourites')
-  async getFavourites() {
+  @UseGuards(new AuthGuard())
+  async getFavourites(@Session() session: SessionContainer) {
     const sales_list = await this.appService.getSales();
 
     return {sales: sales_list}
@@ -39,9 +45,14 @@ export class AppController {
 
   @Get('/review')
   @Render('review')
-  async getReview() {
+  async getReview(@Session() session: SessionContainer) {
     const reviews_list = await this.appService.getReviews();
 
     return {reviews: reviews_list}
+  }
+
+  @Get('/login')
+  @Render('login')
+  async getLoggingPage(@Session() session: SessionContainer) {
   }
 }

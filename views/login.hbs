@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <meta charset="UTF-8">
+    <meta name="description" content="Современные велосипеды по отличным ценам">
+    <meta content="велосипеды, магазин, веломагазин">
+    <title>Лучший магазин велосипедов!</title>
+    {{> shared_scripts }}
+    <script src="scripts/sign_in.js" async></script>
+    <script src="scripts/sign_up.js" async></script>
+</head>
+
+<body>
+<header>
+    {{> header }}
+</header>
+
+<main>
+    <nav>
+        {{> menu }}
+    </nav>
+
+    <body>
+    <div>
+        <h2>Авторизация</h2>
+        <form class="logging_form" name="logging_form">
+            <label>Email</label>
+            <input name="email" class="logging_input" placeholder="Email" required>
+            <label>Password</label>
+            <input name="password" class="logging_input" placeholder="Password" required>
+            <div>
+                <button class="logging_button" type="button" onClick="submitSignIn()">
+                    Sign in
+                </button>
+                <button class="logging_button" type="button" onClick="submitSignUp()">
+                    Sign up
+                </button>
+            </div>
+        </form>
+    </div>
+    </body>
+</main>
+
+<footer>
+    {{> footer }}
+</footer>
+
+</body>
+</html>

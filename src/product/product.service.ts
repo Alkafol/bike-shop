@@ -3,7 +3,6 @@ import { ProductPostDto } from "./dto/product.post.dto";
 import { ProductGetDto } from "./dto/product.get.dto";
 import { ProductUpdateDto } from "./dto/product.update.dto";
 import {PrismaService} from "../prisma.service";
-import {ProductValidator} from "./product.validator";
 
 @Injectable()
 export class ProductService {
